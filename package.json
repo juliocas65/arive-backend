@@ -1,0 +1,72 @@
+{
+  "name": "arive-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node build/app.js",
+    "start:dev": "nodemon app.ts",
+    "build": "tsc --project ./",
+    "lint": "eslint \"{app,config}/**/*.ts\" --no-fix",
+    "test:unit": "jest --detectOpenHandles",
+    "test:cov": "jest --coverage",
+    "newman": "wait-on -t 60000 http://localhost:3000/health && newman run postman_collection.json",
+    "prepare-functional": "node -e \"require('./prepare-db-for-functional-test').run().then(()=>{ process.exit(0); }).catch(e => { console.log(e.stack); process.exit(1); })\"",
+    "test:functional": " concurrently -k -s first 'npm:newman' 'npm:start:dev'"
+  },
+  "author": "Julio Castillo",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/config": "0.0.39",
+    "@types/eslint": "^7.28.0",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^26.0.24",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^16.4.0",
+    "@types/supertest": "^2.0.11",
+    "@types/swagger-ui-express": "^4.1.3",
+    "@types/yamljs": "^0.2.31",
+    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/parser": "^2.23.0",
+    "concurrently": "^6.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "jest": "^27.0.6",
+    "newman": "^5.2.4",
+    "supertest": "^6.1.4",
+    "ts-jest": "^27.0.4",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5",
+    "wait-on": "^6.0.0"
+  },
+  "dependencies": {
+    "class-validator": "^0.13.1",
+    "config": "^3.3.6",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.3",
+    "nodemon": "^2.0.12",
+    "swagger-ui-express": "^4.1.6",
+    "yamljs": "^0.3.0"
+  },
+  "jest": {
+    "testTimeout": 5000,
+    "rootDir": "app/",
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint && npm run test:cov"
+    }
+  }
+}

@@ -1,0 +1,254 @@
+{
+	"info": {
+		"_postman_id": "247e748d-0778-4baf-9123-74117d2f2851",
+		"name": "arive-backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "health",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							" pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Should return an OK message\", function () {",
+							" var jsonData = pm.response.json();",
+							" pm.expect(jsonData.message).to.eql('arive-backend up and running');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							" pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Should return an SUCCESS message\", function () {",
+							" var jsonData = pm.response.json();",
+							" pm.expect(jsonData.status).to.eql('SUCCESS');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Joseph\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							" pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Should return an SUCCESS message\", function () {",
+							" var jsonData = pm.response.json();",
+							" pm.expect(jsonData.status).to.eql('SUCCESS');",
+							"});",
+							"pm.test(\"Should return two users\", function () {",
+							" var jsonData = pm.response.json();",
+							" pm.expect(jsonData.data.length).to.equal(2);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hobbie",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							" pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Should return an SUCCESS message\", function () {",
+							" var jsonData = pm.response.json();",
+							" pm.expect(jsonData.status).to.eql('SUCCESS');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Study\",\n    \"user\": \"60f9e566f0c67ca495f5fb55\",\n    \"passionLevel\": \"High\",\n    \"year\": 2015\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/hobbie",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"hobbie"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hobbie/:id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							" pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Should return an SUCCESS message\", function () {",
+							" var jsonData = pm.response.json();",
+							" pm.expect(jsonData.status).to.eql('SUCCESS');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/hobbie/60fc51ba404c6bb1f2b0e4cf",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"hobbie",
+						"60fc51ba404c6bb1f2b0e4cf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hobbie/userId/:userId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							" pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Should return an SUCCESS message\", function () {",
+							" var jsonData = pm.response.json();",
+							" pm.expect(jsonData.status).to.eql('SUCCESS');",
+							"});",
+							"pm.test(\"Should return two users\", function () {",
+							" var jsonData = pm.response.json();",
+							" pm.expect(jsonData.data.length).to.equal(2);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/hobbie/userId/60f9e566f0c67ca495f5fb55",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"hobbie",
+						"userId",
+						"60f9e566f0c67ca495f5fb55"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

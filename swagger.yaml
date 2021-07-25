@@ -1,0 +1,264 @@
+swagger: "2.0"
+info:
+  description: Users and Hobbies Backend Service
+  version: "1.0.0"
+  title: arive-backend
+  contact:
+    name: Julio Castillo
+    email: juliocas65@gmail.com
+servers:
+  - url: http://localhost:3000
+basePath: "/"
+schemes:
+  - "http"
+paths:
+
+  /health:
+    get:
+      tags:
+        - Health
+      summary: "Verify the health of service."
+      consumes:
+        - application/json
+      responses:
+        200:
+          description: "Ok Response"
+          schema:
+            $ref: "#/definitions/healthResponseOk"
+          examples:
+            Up:
+              "arive-backend up and running"
+
+  /user:
+    post:
+      tags:
+        - User
+      summary: "Create an User"
+      consumes:
+        - application/json
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/createUser"
+      responses:
+        201:
+          description: "Ok Response"
+          schema:
+            $ref: "#/definitions/userResponseOk"
+          examples:
+            SUCCESS:
+              status: 'SUCCESS'
+              data:
+                  id: '60f9e566f0c67ca495f5fb55'
+                  name: 'Julio'
+                  createdAt: '2021-07-25T21:38:46.375Z'
+                  updatedAt: '2021-07-25T21:38:46.375Z'
+        500:
+          description: "Error Response"
+          schema:
+            $ref: "#/definitions/responseError"
+          examples:
+            SUCCESS:
+              status: 'ERROR'
+              message: Error
+    get:
+      tags:
+        - User
+      summary: "Get a list of Users"
+      consumes:
+        - application/json
+      responses:
+        200:
+          description: "Ok Response"
+          schema:
+            $ref: "#/definitions/usersResponseOk"
+          examples:
+            SUCCESS:
+              status: 'SUCCESS'
+              data: "{}"
+        500:
+          description: "Error Response"
+          schema:
+            $ref: "#/definitions/responseError"
+          examples:
+            SUCCESS:
+              code: 'ERROR'
+              message: Error
+
+  /hobbie:
+    post:
+      tags:
+        - Hobbie
+      summary: "Create an Hobbie"
+      consumes:
+        - application/json
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/createHobbie"
+      responses:
+        201:
+          description: "Ok Response"
+          schema:
+            $ref: "#/definitions/userResponseOk"
+          examples:
+            SUCCESS:
+              status: 'SUCCESS'
+              data:
+                id: '60f9e566f0c67ca495f5fb55'
+                name: 'Julio'
+                createdAt: '2021-07-25T21:38:46.375Z'
+                updatedAt: '2021-07-25T21:38:46.375Z'
+        500:
+          description: "Error Response"
+          schema:
+            $ref: "#/definitions/responseError"
+          examples:
+            SUCCESS:
+              status: 'ERROR'
+              message: Error
+  /hobbie/userId/{userId}:
+    get:
+      tags:
+        - Hobbie
+      summary: "Get a list of Hobbies of an user"
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: userId
+          description: User Id
+          schema:
+            type: string
+            example: '60f9e566f0c67ca495f5fb55'
+          required: true
+      responses:
+        200:
+          description: "Ok Response"
+          schema:
+            $ref: "#/definitions/hobbiesResponseOk"
+          examples:
+            SUCCESS:
+              status: 'SUCCESS'
+              data: data: "{}"
+        500:
+          description: "Error Response"
+          schema:
+            $ref: "#/definitions/responseError"
+          examples:
+            SUCCESS:
+              code: 'ERROR'
+              message: Error
+  /hobbie/{id}:
+    delete:
+      tags:
+        - Hobbie
+      summary: "Delete an Hobbie"
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: Hobbie Id
+          schema:
+            type: string
+            example: '60fc51ba404c6bb1f2b0e4cf'
+          required: true
+      responses:
+        200:
+          description: "Ok Response"
+          schema:
+            $ref: "#/definitions/hobbiesResponseOk"
+          examples:
+            SUCCESS:
+              status: 'SUCCESS'
+              data: data: "{}"
+        500:
+          description: "Error Response"
+          schema:
+            $ref: "#/definitions/responseError"
+          examples:
+            SUCCESS:
+              code: 'ERROR'
+              message: Error
+
+definitions:
+  healthResponseOk:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+  user:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: '60f9e566f0c67ca495f5fb55'
+      name:
+        type: "string"
+        example: 'Julio'
+      createdAt:
+        type: "string"
+        example: '2021-07-25T21:38:46.375Z'
+      updatedAt:
+        type: "string"
+        example: '2021-07-25T21:38:46.375Z'
+  responseError:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+        examples: "500"
+      message:
+        type: "string"
+        examples: "Error"
+  createUser:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        examples: "Julio"
+  userResponseOk:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+        examples: "200"
+      data:
+        type: "object"
+  usersResponseOk:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+        examples: "200"
+      data:
+        type: "array"
+  createHobbie:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        examples: "Julio"
+      user:
+        type: "string"
+        examples: "60f9e566f0c67ca495f5fb55"
+      year:
+        type: "number"
+        examples: 2020
+      passionLevel:
+        type: "string"
+        examples: "Low"
+  hobbiesResponseOk:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+        examples: "200"
+      data:
+        type: "array"
+
